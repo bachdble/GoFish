@@ -1,10 +1,8 @@
-Initialize
------------
+## Initialize
 	* Create Player List
 	* Give 5 random cards to each player from the dealer deck
 	
-Play
------------
+## Play
 	* Give game state to the view
 	* Get player input from the view
 	
