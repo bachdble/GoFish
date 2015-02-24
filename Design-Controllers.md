@@ -1,19 +1,19 @@
 Initialize
-	Create Player List
-	
-	Give 5 random cards to each player from the dealer deck
+-----------
+	*Create Player List
+	*Give 5 random cards to each player from the dealer deck
 	
 Play
-	Give game state to the view
+-----------
+	*Give game state to the view
+	*Get player input from the view
 	
-	Get player input from the view
-	
-	Handle the action
+	*Handle the action
 
-		Quit:
+		**Quit:
 			Quit the game
 	
-		Request Card:
+		**Request Card:
 			
 			Does requestee have the card?
 				Yes
@@ -27,6 +27,6 @@ Play
 					Set result message
 			Make history log
 			
-	Give result to the view
+	*Give result to the view
 	
-	Loop
+	*Loop
