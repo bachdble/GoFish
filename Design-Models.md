@@ -1,5 +1,4 @@
-Models
-	* CardSet
+## CardSet
 
 	A set of one card type.
 
@@ -12,7 +11,7 @@ Models
 		MAX_CARD_TYPES is last value which eq the previous
 
 	### Functions
-	
+
 	* cardType GetCardType (card*)
 	// Returns the card type (necessary? or should we just access it directly)
 
@@ -26,11 +25,11 @@ Models
 	* AddCards (card*, count)
 	//	* Adds count cards to the given card set.
 
-	* Card Deck
+## Card Deck
 
-	* List of Cards (similar to a player)
+	List of Cards (similar to a player)
 
-	* Needs rand (stdlib.h)
+	Needs rand (stdlib.h)
 
 	### Functions
 
@@ -47,13 +46,14 @@ Models
 	* bool HasType (cardType)
 	// Returns true if the deck contains at least one of cardType, false otherwise.
 
-	* Move History
 
-	* The history of moves.
+## Move History
 
-	* List of move structs.
+	The history of moves.
 
-	* (typedef?) move struct
+	List of move structs.
+
+	(typedef?) move struct
 		player requestor
 		player requestee
 		cardType card
@@ -72,9 +72,9 @@ Models
 	// Returns the most recent set of moves for the given player.
 	// A player may make several moves before the turn is over.
 
-	* Player
+## Player
 
-	* player struct
+	player struct
 		cardDeck
 		char* name
 		int playerType (0 for human, 1 for computer ... will only do 0's for now)
