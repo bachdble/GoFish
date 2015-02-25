@@ -93,7 +93,7 @@ typdef struct {
 	cardType card;
 	int count;
 } move;
-	
+
 ````
 
 #### Functions
@@ -120,6 +120,14 @@ typedef struct {
 	char* name;
 	int playerType; // (0 for human, 1 for computer ... will only do 0's for now)	
 } player;
+
+
+#define MAX_PLAYERS 4;
+int playerCount;
+
+player *players = malloc(playerCount * sizeof(player));
+
+free (players);
 
 ````
 
