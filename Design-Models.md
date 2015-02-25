@@ -9,8 +9,9 @@ A set of one card type.
 
 * cardTypes enum
 
-	typedef
-	MAX_CARD_TYPES is last value which eq the previous
+
+	enum cardTypes_t { BLUETANG, CLOWNFISH, DOLPHIN, LOBSTER, OCTOPUS, SEAHORSE, SHARK, STARFISH, STINGRAY, WHALE, MAX_CARD_TYPES }
+	typedef enum cardTypes_t cardType;
 
 #### Functions
 
