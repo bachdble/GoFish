@@ -2,35 +2,57 @@
 
 A set of one card type.
 
-* typecard CardSet struct
-
-	type
-	numCards
-
 * cardTypes enum
 
+````c
+enum cardType_t { BLUETANG, CLOWNFISH, DOLPHIN, LOBSTER, OCTOPUS, SEAHORSE, SHARK, STARFISH, STINGRAY, WHALE, MAX_CARD_TYPES }
+typedef enum cardType_t cardType;
+````
 
-	enum cardTypes_t { BLUETANG, CLOWNFISH, DOLPHIN, LOBSTER, OCTOPUS, SEAHORSE, SHARK, STARFISH, STINGRAY, WHALE, MAX_CARD_TYPES }
-	typedef enum cardTypes_t cardType;
+* cardNames
+
+````c
+const char *cardName[] = {
+	[BLUETANG] = 'Blue Tang',
+	[CLOWNFISH] = 'Clownfish',
+	[DOLPHIN] = 'Dolphin',
+	[LOBSTER] = 'Lobster',
+	[OCTOPUS] = 'Octopus',
+	[SEAHORSE] = 'Seahorse',
+	[SHARK] = 'Shark',
+	[STARFISH] = 'Starfish',
+	[STINGRAY] = 'Stingray',
+	[WHALE] = 'Whale'
+};
+````
+
+* typecard CardSet struct
+
+````c
+typedef struct {
+	cardType type;
+	int numCards;
+} cardSet;
+````
 
 #### Functions
 
-* cardType GetCardType (card*)
+* cardType GetCardType (cardSet*)
 
-	Returns the card type (necessary? or should we just access it directly)
+Returns the card type (necessary? or should we just access it directly)
 
-* int GetNumCards (card*)
+* int GetNumCards (cardSet*)
 
-	Gets the number of cards in the set (necessary? or should we just access it directly)
+Gets the number of cards in the set (necessary? or should we just access it directly)
 
-* bool RemoveCards (card*, count)
+* bool RemoveCards (cardSet*, count)
 
-	Removes count cards from the given card set.  Returns true if successful, false otherwise.
-	If count > card.numCards, or if count < 0, then false.
+Removes count cards from the given card set.  Returns true if successful, false otherwise.
+If count > card.numCards, or if count < 0, then false.
 
-* AddCards (card*, count)
+* AddCards (cardSet*, count)
 
-	dds count cards to the given card set.
+Adds count cards to the given card set.
 
 ## Card Deck
 
@@ -42,20 +64,20 @@ Needs rand (stdlib.h)
 
 * cardType GetRandomCard()
 
-	Removes and returns a random card from the deck.
+Removes and returns a random card from the deck.
 
 * void AddCards (cardType, count)
 
-	Add count cards of cardType type to the deck.
+Add count cards of cardType type to the deck.
 
 * int RemoveCares (cardType)
 
-	Removes all of the cards of type cardType from the deck and
-	returns the #removed.
+Removes all of the cards of type cardType from the deck and
+returns the #removed.
 
 * bool HasType (cardType)
 
-	Returns true if the deck contains at least one of cardType, false otherwise.
+Returns true if the deck contains at least one of cardType, false otherwise.
 
 
 ## Move History
@@ -64,55 +86,61 @@ The history of moves.
 
 List of move structs.
 
-(typedef?) move struct
-
-	player requestor
-	player requestee
-	cardType card
-	int count
+````c
+typdef struct {
+	player requestor;
+	player requestee;
+	cardType card;
+	int count;
+} move;
+	
+````
 
 #### Functions
 
 * bool AddMove (move)
 
-	Adds a move to the history list.  Returns true if successful.
+Adds a move to the history list.  Returns true if successful.
 
 * bool UndoLastMove ()
 
-	Removes the last move from the history.  Returns true if successful.
-	Don't implement this yet ... not sure if we'll use it.
+Removes the last move from the history.  Returns true if successful.
+Don't implement this yet ... not sure if we'll use it.
 
 * history GetLastMoveSetFor (player)
 
-	Returns the most recent set of moves for the given player.
-	A player may make several moves before the turn is over.
+Returns the most recent set of moves for the given player.
+A player may make several moves before the turn is over.
 
 ## Player
 
-player struct
+````c
+typedef struct {
+	cardSet[10] deck; // Best way to do this?  Easiest method: cardSet[10] deck;
+	char* name;
+	int playerType; // (0 for human, 1 for computer ... will only do 0's for now)	
+} player;
 
-	cardDeck
-	char* name
-	int playerType (0 for human, 1 for computer ... will only do 0's for now)
+````
 
 #### Functions
 
 * bool DoYouHaveAny (player, cardType)
 
-	Returns true if player has any of cardType in the deck.
+Returns true if player has any of cardType in the deck.
 
 * void AddCards(player, cardType, count)
 
-	Adds count cardTypes to players cardDeck.
+Adds count cardTypes to players cardDeck.
 
 * int TakeCards (player, cardType)
 
-	Removes all of cardType from the players cardDeck and returns the numCards removed.
+Removes all of cardType from the players cardDeck and returns the numCards removed.
 
 * cardDeck GetBookList (player)
 
-	Returns a list of cardTypes where the player has all 4 cards  (Is this necessary?)
+Returns a list of cardTypes where the player has all 4 cards  (Is this necessary?)
 
 * bool HasPlayableCards (player)
 
-	Returns true if the player has any cards not in a book
+Returns true if the player has any cards not in a book
