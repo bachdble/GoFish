@@ -44,7 +44,7 @@ Needs stdio.h
 
 	Other Player names (& type, eventually)
 
-	# cards
+	cards
 	books
 	card requests from their last turn: what, who, result
 	TODESIGN
