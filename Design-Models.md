@@ -29,8 +29,9 @@ const char *cardName[] = {
 * CardSet
 
 ````c
+#define MAX_CARDS_PER_SET
+
 typedef struct {
-	cardType type;
 	int numCards;
 } cardSet;
 ````
@@ -60,6 +61,15 @@ List of Cards (similar to a player)
 
 Needs rand (stdlib.h)
 
+````c
+cardSet[MAX_CARD_TYPES] dealerDeck;
+
+// Initialize dealer deck cards.
+for(int i = 0; i < MAX_CARD_TYPES; i++) {
+	AddCards(&cardSet[i],MAX_CARDS_PER_SET);
+}
+````
+
 #### Functions
 
 * cardType GetRandomCard()
@@ -79,6 +89,53 @@ Needs rand (stdlib.h)
 
 	Returns true if the deck contains at least one of cardType, false otherwise.
 
+## Player
+
+````c
+typedef struct {
+	cardSet[MAX_CARD_TYPES] deck; // Best way to do this?  Easiest method: cardSet[MAX_CARD_TYPES] deck;
+	char* name;
+	int playerType; // (0 for human, 1 for computer ... will only do 0's for now)	
+} player;
+
+
+#define MAX_PLAYERS 4;
+int playerCount;
+````
+
+#### Functions
+
+* bool DoYouHaveAny (player*, cardType)
+
+	Returns true if player has any of cardType in the deck.
+
+* void AddCards(player*, cardType, count)
+
+	Adds count cardTypes to players cardDeck.
+
+* int TakeCards (player*, cardType)
+
+	Removes all of cardType from the players cardDeck and returns the numCards removed.
+
+* cardDeck GetBookList (player*)
+
+	Returns a list of cardTypes where the player has all 4 cards  (Is this necessary?)
+
+* bool HasPlayableCards (player*)
+
+	Returns true if the player has any cards not in a book
+
+* void DestructPlayers (players*)
+	
+	Free player memory including the name char*.
+	````c
+	player *players = malloc(playerCount * sizeof(player));
+
+	for (int i = 0; i < numPlayers; i++) {
+		free (player[i].name);
+	}
+	free (players);
+	````
 
 ## Move History
 
@@ -88,67 +145,35 @@ List of move structs.
 
 ````c
 typdef struct {
-	player requestor;
-	player requestee;
+	player* requestor; // History code should not delete the player memory ... player model will take care of that.
+	player* requestee; // Just set it to null.
 	cardType card;
 	int count;
 } move;
 
+move *history;
 ````
 
 #### Functions
 
-* bool AddMove (move)
+* bool AddMove (player* requestor, player* requestee, cardType card, int count)
 
 	Adds a move to the history list.  Returns true if successful.
 
-* bool UndoLastMove ()
+* move* UndoLastMove ()
 
 	Removes the last move from the history.  Returns true if successful.
 	Don't implement this yet ... not sure if we'll use it.
+	Will also have to pu stuff back 
 
-* history GetLastMoveSetFor (player)
+* move* GetLastMoveSetFor (player*)
 
 	Returns the most recent set of moves for the given player.
 	A player may make several moves before the turn is over.
+	But, how do we know how many records are in the set?
+	And who manages the memory?
 
-## Player
+* DestructHistory (move*)
 
-````c
-typedef struct {
-	cardSet[10] deck; // Best way to do this?  Easiest method: cardSet[10] deck;
-	char* name;
-	int playerType; // (0 for human, 1 for computer ... will only do 0's for now)	
-} player;
-
-
-#define MAX_PLAYERS 4;
-int playerCount;
-
-player *players = malloc(playerCount * sizeof(player));
-
-free (players);
-
-````
-
-#### Functions
-
-* bool DoYouHaveAny (player, cardType)
-
-	Returns true if player has any of cardType in the deck.
-
-* void AddCards(player, cardType, count)
-
-	Adds count cardTypes to players cardDeck.
-
-* int TakeCards (player, cardType)
-
-	Removes all of cardType from the players cardDeck and returns the numCards removed.
-
-* cardDeck GetBookList (player)
-
-	Returns a list of cardTypes where the player has all 4 cards  (Is this necessary?)
-
-* bool HasPlayableCards (player)
-
-	Returns true if the player has any cards not in a book
+	Free the move memory.
+	Sets the requestor and requestee to null.  That memory is handled by the player model.
