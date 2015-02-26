@@ -29,7 +29,7 @@ const char *cardName[] = {
 * CardSet
 
 ````c
-#define MAX_CARDS_PER_SET
+#define MAX_CARDS_PER_SET 4
 
 typedef struct {
 	int numCards;
@@ -128,12 +128,14 @@ int playerCount;
 * void DestructPlayers (players*)
 	
 	Free player memory including the name char*.
+	
 	````c
 	player *players = malloc(playerCount * sizeof(player));
 
 	for (int i = 0; i < numPlayers; i++) {
 		free (player[i].name);
 	}
+
 	free (players);
 	````
 
@@ -173,7 +175,7 @@ move *history;
 	But, how do we know how many records are in the set?
 	And who manages the memory?
 
-* DestructHistory (move*)
+* void DestructHistory (move*)
 
 	Free the move memory.
 	Sets the requestor and requestee to null.  That memory is handled by the player model.
