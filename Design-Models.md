@@ -153,29 +153,38 @@ typdef struct {
 	int count;
 } move;
 
-move *history;
+// Stack from Utils.h
+typedef stack history;
+
+history *moveHistory;
 ````
 
 #### Functions
 
-* bool AddMove (player* requestor, player* requestee, cardType card, int count)
+* void AddMove (history *mh, player* requestor, player* requestee, cardType card, int count)
 
-	Adds a move to the history list.  Returns true if successful.
+	Adds a move to the history list.
 
-* move* UndoLastMove ()
+* bool UndoLastMove (history *mh)
 
-	Removes the last move from the history.  Returns true if successful.
+	Removes the last move from the history.
+	Returns true if successful.
 	Don't implement this yet ... not sure if we'll use it.
 	Will also have to pu stuff back 
 
-* move* GetLastMoveSetFor (player *p)
+* history* GetLastMoveSetFor (history *mh, player *p)
 
-	Returns the most recent set of moves for the given player.
-	A player may make several moves before the turn is over.
-	But, how do we know how many records are in the set?
-	And who manages the memory?
+	Returns a new history stack containing the last moves for the given player in descending order.
+	And who manages the memory?  Use DestructHistory.
 
-* void DestructHistory (move *mv)
+* void DestructHistory (history *mh)
 
 	Free the move memory.
 	Sets the requestor and requestee to null.  That memory is handled by the player model.
+	Frees the stack memory too by calling DestructStack (h), then sets h  to null.
+
+
+
+
+
+
