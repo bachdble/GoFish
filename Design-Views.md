@@ -49,7 +49,7 @@ Needs stdio.h
 	card requests from their last turn: what, who, result
 	TODESIGN
 			
-* playerAction GetPlayerAction (player*)
+* playerAction GetPlayerAction (player *p)
 
 	options:
 	
