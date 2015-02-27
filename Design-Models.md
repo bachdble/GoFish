@@ -38,20 +38,20 @@ typedef struct {
 
 #### Functions
 
-* cardType GetCardType (cardSet*)
+* cardType GetCardType (cardSet *card)
 
 	Returns the card type (necessary? or should we just access it directly)
 
-* int GetNumCards (cardSet*)
+* int GetNumCards (cardSet *card)
 
 	Gets the number of cards in the set (necessary? or should we just access it directly)
 
-* bool RemoveCards (cardSet*, count)
+* bool RemoveCards (cardSet *card, int count)
 
 	Removes count cards from the given card set.  Returns true if successful, false otherwise.
 	If count > card.numCards, or if count < 0, then false.
 
-* AddCards (cardSet*, count)
+* AddCards (cardSet *card, int count)
 
 	Adds count cards to the given card set.
 
@@ -76,16 +76,16 @@ for(int i = 0; i < MAX_CARD_TYPES; i++) {
 
 	Removes and returns a random card from the deck.
 
-* void AddCards (cardType, count)
+* void AddCards (cardType ct, int count)
 
 	Add count cards of cardType type to the deck.
 
-* int RemoveCares (cardType)
+* int RemoveCares (cardType ct)
 
 	Removes all of the cards of type cardType from the deck and
 	returns the number removed.
 
-* bool HasType (cardType)
+* bool HasType (cardType ct)
 
 	Returns true if the deck contains at least one of cardType, false otherwise.
 
@@ -94,7 +94,7 @@ for(int i = 0; i < MAX_CARD_TYPES; i++) {
 ````c
 typedef struct {
 	cardSet[MAX_CARD_TYPES] deck; // Best way to do this?  Easiest method: cardSet[MAX_CARD_TYPES] deck;
-	char* name;
+	char *name;
 	int playerType; // (0 for human, 1 for computer ... will only do 0's for now)	
 } player;
 
@@ -105,27 +105,27 @@ int playerCount;
 
 #### Functions
 
-* bool DoYouHaveAny (player*, cardType)
+* bool DoYouHaveAny (player *p, cardType ct)
 
 	Returns true if player has any of cardType in the deck.
 
-* void AddCards(player*, cardType, count)
+* void AddCards(player *p, cardType ct, int count)
 
 	Adds count cardTypes to players cardDeck.
 
-* int TakeCards (player*, cardType)
+* int TakeCards (player *p, cardType ct)
 
 	Removes all of cardType from the players cardDeck and returns the numCards removed.
 
-* cardDeck GetBookList (player*)
+* cardDeck GetBookList (player *p)
 
 	Returns a list of cardTypes where the player has all 4 cards  (Is this necessary?)
 
-* bool HasPlayableCards (player*)
+* bool HasPlayableCards (player *p)
 
 	Returns true if the player has any cards not in a book
 
-* void DestructPlayers (players*)
+* void DestructPlayers (players *p)
 	
 	Free player memory including the name char*.
 	
@@ -147,8 +147,8 @@ List of move structs.
 
 ````c
 typdef struct {
-	player* requestor; // History code should not delete the player memory ... player model will take care of that.
-	player* requestee; // Just set it to null.
+	player *requestor; // History code should not delete the player memory ... player model will take care of that.
+	player *requestee; // Just set it to null.
 	cardType card;
 	int count;
 } move;
@@ -168,14 +168,14 @@ move *history;
 	Don't implement this yet ... not sure if we'll use it.
 	Will also have to pu stuff back 
 
-* move* GetLastMoveSetFor (player*)
+* move* GetLastMoveSetFor (player *p)
 
 	Returns the most recent set of moves for the given player.
 	A player may make several moves before the turn is over.
 	But, how do we know how many records are in the set?
 	And who manages the memory?
 
-* void DestructHistory (move*)
+* void DestructHistory (move *mv)
 
 	Free the move memory.
 	Sets the requestor and requestee to null.  That memory is handled by the player model.
