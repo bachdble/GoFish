@@ -101,6 +101,8 @@ typedef struct {
 
 #define MAX_PLAYERS 4;
 int playerCount;
+
+player *players = malloc(playerCount * sizeof(player));
 ````
 
 #### Functions
