@@ -35,12 +35,12 @@ Needs stdio.h
 
 ## Probably used in the play loop
 
-* void ShowPlayerState (<params?>)
+* void ShowPlayerState (player *p)
 
 	Cards, sorted: count and type
 	TODESIGN
 
-* void ShowGameState (<params?>)
+* void ShowGameState (history *h, player *players, int playerCount, int currentPlayer)
 
 	Other Player names (& type, eventually)
 
@@ -63,7 +63,7 @@ Needs stdio.h
 	TODESIGN
 
 		
-* void ShowActionResult (<params?>)
+* void ShowActionResult (move *mv)
 
 	(w/ pause? for taking turns since it's played on the same compy)
 	"You got n cardType(s)"
