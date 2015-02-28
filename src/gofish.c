@@ -1,10 +1,14 @@
 #include <stdio.h>
+#include "models/cardset.h"
 #include "gofish.h"
 
 
+#include "test.h"
+//#include "main.h"
+
 int main(void) {
 
-	printf("Hello, world again!\n");
+	play();
 
 	return 0;
 }

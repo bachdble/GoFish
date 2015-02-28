@@ -46,7 +46,7 @@ typedef struct {
 
 	Gets the number of cards in the set (necessary? or should we just access it directly)
 
-* bool RemoveCards (cardSet *card, int count)
+* int RemoveCards (cardSet *card, int count)
 
 	Removes count cards from the given card set.  Returns true if successful, false otherwise.
 	If count > card.numCards, or if count < 0, then false.
@@ -76,7 +76,7 @@ Requires rand (stdlib.h)
 	Removes all of the cards of type cardType from the deck and
 	returns the number removed.
 
-* bool HasType (cardType ct)
+* int HasType (cardType ct)
 
 	Returns true if the deck contains at least one of cardType, false otherwise.
 
@@ -99,7 +99,7 @@ typedef struct {
 
 #### Functions
 
-* bool DoYouHaveAny (player *p, cardType ct)
+* int DoYouHaveAny (player *p, cardType ct)
 
 	Returns true if player has any of cardType in the deck.
 
@@ -119,7 +119,7 @@ typedef struct {
 
 	Returns a list of cardTypes where the player has all 4 cards  (Is this necessary?)
 
-* bool HasPlayableCards (player *p)
+* int HasPlayableCards (player *p)
 
 	Returns true if the player has any cards not in a book
 
@@ -181,7 +181,7 @@ history *moveHistory;
 
 	Adds a move to the history list.
 
-* bool UndoLastMove (history *mh)
+* int UndoLastMove (history *mh)
 
 	Removes the last move from the history.
 	Returns true if successful.
