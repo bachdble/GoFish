@@ -35,19 +35,34 @@ Needs stdio.h
 
 ## Probably used in the play loop
 
-* void ShowPlayerState (player *p)
+* void ShowPlayerState (player *p, bool showCards)
 
 	Cards, sorted: count and type
-	TODESIGN
 
-* void ShowGameState (history *h, player *players, int playerCount, int currentPlayer)
+	"%s\n\r", playerName
+	"\tBooks\n"
+	for each card where cardCount == 4
+		"\t%d x %s\n\r", cardCount, CardName
+	if no books printed, then print "No Books"
+	if showCards
+	"\tCards:\n"
+	for each card where cardCount > 0 and cardCound < 4
+		"\t%d x %s\n\r", cardCount, CardName
+	if no cards printed, then print "No Cards"
+	else
+		print the total number of cards the player has (CardCount(p))
+	"\n\r"
 
-	Other Player names (& type, eventually)
+* void ShowGameState (history *h, player *currentPlayer)
 
-	cards
-	books
-	card requests from their last turn: what, who, result
-	TODESIGN
+	Other Player names (and type, eventually)
+
+	(For each move, until we reach a move with the currentPlayer):
+	The first time we see each player:
+	ShowPlayerState(requestor, false)
+	For each move:
+	Show the result of the move: "%s requested from %s.  %d cards given. ", cardType, requesteePlayerNumber, count
+	"\n\r"
 			
 * playerAction GetPlayerAction (player *p)
 
@@ -60,14 +75,17 @@ Needs stdio.h
 	enym playerAction_t {QUIT, ASK_FOR_CARD}
 	typedef enum playerAction_t playerAction;
 	````
-	TODESIGN
-
 		
 * void ShowActionResult (move *mv)
 
-	(w/ pause? for taking turns since it's played on the same compy)
+	(w/ pause for taking turns since it's played on the same compy?)
 	"You got n cardType(s)"
 	and possibly: "You got another book!"
 	or
 	"Go Fish!"
-	TODESIGN
+
+
+
+
+
+
