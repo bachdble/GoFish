@@ -59,16 +59,7 @@ typedef struct {
 
 List of Cards (similar to a player)
 
-Needs rand (stdlib.h)
-
-````c
-cardSet[MAX_CARD_TYPES] dealerDeck;
-
-// Initialize dealer deck cards.
-for(int i = 0; i < MAX_CARD_TYPES; i++) {
-	AddCards(&cardSet[i],MAX_CARDS_PER_SET);
-}
-````
+Requires rand (stdlib.h)
 
 #### Functions
 
@@ -92,6 +83,9 @@ for(int i = 0; i < MAX_CARD_TYPES; i++) {
 ## Player
 
 ````c
+#include "headers/models/CardSet.h";
+#include "headers/models/CardDeck.h";
+
 typedef struct {
 	cardSet[MAX_CARD_TYPES] deck; // Best way to do this?  Easiest method: cardSet[MAX_CARD_TYPES] deck;
 	char *name;
@@ -100,9 +94,7 @@ typedef struct {
 
 
 #define MAX_PLAYERS 4;
-int playerCount;
 
-player *players = malloc(playerCount * sizeof(player));
 ````
 
 #### Functions
@@ -110,6 +102,10 @@ player *players = malloc(playerCount * sizeof(player));
 * bool DoYouHaveAny (player *p, cardType ct)
 
 	Returns true if player has any of cardType in the deck.
+
+* player *CopyPlayer (player *p)
+
+	Returns a copy of player p.
 
 * void AddCards(player *p, cardType ct, int count)
 
@@ -127,6 +123,18 @@ player *players = malloc(playerCount * sizeof(player));
 
 	Returns true if the player has any cards not in a book
 
+* int CardCount(player *p)
+
+	Returns the total number of cards the player has.
+
+* void DestructPlayer (player *p)
+
+	Free memory for inside player object;
+
+	````c
+	free(player.name);
+	````
+
 * void DestructPlayers (players *p)
 	
 	Free player memory including the name char*.
@@ -135,7 +143,7 @@ player *players = malloc(playerCount * sizeof(player));
 	player *players = malloc(playerCount * sizeof(player));
 
 	for (int i = 0; i < numPlayers; i++) {
-		free (player[i].name);
+		DestructPlayer(Player[i]);
 	}
 
 	free (players);
@@ -149,8 +157,10 @@ List of move structs.
 
 ````c
 typdef struct {
-	player *requestor; // History code should not delete the player memory ... player model will take care of that.
-	player *requestee; // Just set it to null.
+	int requestingPlayerNumber;
+	int requesteePlayerNumber;
+	player *requestor; // This should be an independent copy of the player as it existed just after the move was executed.
+	player *requestee; // The Destruct method should release this memory.
 	cardType card;
 	int count;
 } move;
@@ -163,7 +173,11 @@ history *moveHistory;
 
 #### Functions
 
-* void AddMove (history *mh, player* requestor, player* requestee, cardType card, int count)
+* move* CreateMove (players *p, int requestorNumber, int requesteeNumber, cardType card, int count)
+
+	Returns a new move object.
+
+* void AddMove (history *mh, move *mv)
 
 	Adds a move to the history list.
 
@@ -172,18 +186,18 @@ history *moveHistory;
 	Removes the last move from the history.
 	Returns true if successful.
 	Don't implement this yet ... not sure if we'll use it.
-	Will also have to pu stuff back 
+	Will also have to put stuff back.
 
 * history* GetLastMoveSetFor (history *mh, player *p)
 
 	Returns a new history stack containing the last moves for the given player in descending order.
-	And who manages the memory?  Use DestructHistory.
+	And who frees the memory?  Use DestructHistory when on it done.
 
 * void DestructHistory (history *mh)
 
 	Free the move memory.
-	Sets the requestor and requestee to null.  That memory is handled by the player model.
-	Frees the stack memory too by calling DestructStack (h), then sets h  to null.
+	Call DestructPlayer on both requestor and requestee, then free requestor and requestee and set to null.
+	Frees the stack memory too by calling DestructStack (mh), then sets mh to null.
 
 
 
