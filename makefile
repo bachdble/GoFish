@@ -35,6 +35,7 @@ clean:
 
 cleanall: clean
 	rm -f $(EXE)
+	rm -fR $(EXE).dSYM/
 
 
 run:
