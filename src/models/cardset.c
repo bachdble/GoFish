@@ -1,64 +1,76 @@
+#include <stdlib.h>
 #include "models/cardset.h"
 
-#define MAX_CARDS_PER_SET 4
-
-enum cardType_t {
-	BLUETANG,
-	CLOWNFISH,
-	DOLPHIN,
-	LOBSTER,
-	OCTOPUS,
-	SEAHORSE,
-	SHARK,
-	STARFISH,
-	STINGRAY,
-	WHALE,
-	MAX_CARD_TYPES
+const char *cardNames[] = {
+	[BLUETANG] = "Blue Tang",
+	[CLOWNFISH] = "Clownfish",
+	[DOLPHIN] = "Dolphin",
+	[LOBSTER] = "Lobster",
+	[OCTOPUS] = "Octopus",
+	[SEAHORSE] = "Seahorse",
+	[SHARK] = "Shark",
+	[STARFISH] = "Starfish",
+	[STINGRAY] = "Stingray",
+	[WHALE] = "Whale"
 };
 
-typedef enum cardType_t cardType;
+cardSet* CreateCardSet () {
+	cardSet *newCard;
 
-typedef struct {
-	int numCards;
-} cardSet;
+	newCard = malloc(sizeof(cardSet));
 
+	newCard->type = BLUETANG;
+	newCard->numCards = 0;
 
-/**
- * Returns the card type of the give card. 
- *
- * @param card A pointer to a card.
- * @return The card type
- */
-cardType GetCardType (cardSet *card);
+	return newCard;
+}
 
-/**
- * Gets the number of cards in the set.
- *
- * @param card A pointer to a card.
- * @return The number of the give card in the set.
- */
-int GetNumCards (cardSet *card);
+cardType GetCardType (cardSet *card) {
+	return card->type;
+}
 
-/**
- * Removes count cards from the given card set.  Returns true if successful, false otherwise.
- * If count > card.numCards, or if count < 0, then false. 
- *
- * @param card A pointer to a card.
- * @param count The number of cards to remove.
- * @return 1 if successful.  0 otherwise.
- */
-int RemoveCards (cardSet *card, int count);
+const char *GetCardName (cardSet *card) {
+	return cardNames[GetCardType(card)];
+}
 
-/**
- * Adds count cards to the given card set. 
- * Total cards can't ge greater than MAX_CARDS_PER_SET
- *
- * @param card A pointer to a card.
- * @param count The number of cards to remove.
- * @return 1 if successful.  0 otherwise.
- */
-int AddCards (cardSet *card, int count);
+int SetCardType (cardSet *card, cardType type) {
+	if(type > 0 && type < MAX_CARD_TYPES) {
+		card->type = type;
+		return 1;
+	}
 
+	return 0;
+}
+
+int GetNumCards (cardSet *card) {
+	return card->numCards;
+}
+
+int RemoveCards (cardSet *card, int count) {
+	if (count > card->numCards || count < 0) {
+		return 0;
+	}
+
+	card->numCards = card->numCards - count;
+	return 1;
+}
+
+int AddCards (cardSet *card, int count) {
+	int temp;
+	temp = card->numCards + count;
+
+	if(count > 0 && temp <= MAX_CARDS_PER_SET) {
+		card->numCards = temp;
+		return 1;
+	}
+
+	return 0;
+}
+
+void DestructCard (cardSet *card) {
+	free (card);
+	card = NULL;
+}
 
 
 
