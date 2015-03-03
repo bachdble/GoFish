@@ -6,7 +6,7 @@ It's an attempt to get back into C programming.
 ### Task List
 
 * Build models in this order:
-- [ ] CardSet
+- [x] CardSet
 - [ ] Stack
 - [ ] CardDeck
 - [ ] Player
