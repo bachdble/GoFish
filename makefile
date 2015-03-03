@@ -1,7 +1,8 @@
 IDIR =./include
 CC=gcc
 CFLAGS=-I$(IDIR)
-CPFLAGS=-c -Wall
+CPFLAGS=-c -Wall -g -O0
+EXE=gofish
 
 ODIR=./obj
 LDIR=./lib
@@ -15,10 +16,10 @@ LIBS=-lm
 
 all: gofish
 
-gofish: $(ODIR)/gofish.o $(ODIR)/test.o $(ODIR)/cardset.o
+$(EXE): $(ODIR)/$(EXE).o $(ODIR)/test.o $(ODIR)/cardset.o
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
-$(ODIR)/gofish.o: $(SRCDIR)/gofish.c  $(wildcard $(MODELSRC)/*.c) $(wildcard $(CTRLSRC)/*.c) $(widlcard $(VIEWSRC)/*.c)
+$(ODIR)/$(EXE).o: $(SRCDIR)/gofish.c  $(wildcard $(MODELSRC)/*.c) $(wildcard $(CTRLSRC)/*.c) $(widlcard $(VIEWSRC)/*.c)
 	$(CC) $(CPFLAGS) -o $@ $< $(CFLAGS)
 
 $(ODIR)/cardset.o: $(MODELSRC)/cardset.c
@@ -33,4 +34,11 @@ clean:
 	rm -f $(ODIR)/*.o *~
 
 cleanall: clean
-	rm -f gofish
+	rm -f $(EXE)
+
+
+run:
+	./$(EXE)
+
+val:
+	valgrind --leak-check=full --show-leak-kinds=all --dsymutil=yes ./$(EXE)
