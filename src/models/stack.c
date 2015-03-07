@@ -1,30 +1,33 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "models/stack.h"
 
-stack* InitStack() {
+stack* InitStack(void *item) {
 	stack *newStack = malloc(sizeof(stack));
 
-	newStack->item = NULL;
+	newStack->item = item;
 	newStack->next = NULL;
 
 	return newStack;
 }
 
-void Push (stack *stk, void *item) {
-	stack *newCell = InitStack();
-	newCell->item = item;
-	newCell->next = stk;
-
-	stk = newCell;
+void Push (stack **stkptr, void *item) {
+	stack *newCell = InitStack(item);
+	newCell->next = *stkptr;
+	*stkptr = newCell;
 }
 
-void* Pop (stack *stk) {
-	stack *tempStack = stk;
+void* Peek (stack *stk) {
+	return stk->item;
+}
+
+void* Pop (stack **stkptr) {
+	stack *tempStack = *stkptr;
 	void *tempItem = tempStack->item;
 
 	tempStack->item = NULL;
 
-	stk = stk->next;
+	*stkptr = (*stkptr)->next;
 
 	free (tempStack);
 
@@ -33,16 +36,24 @@ void* Pop (stack *stk) {
 	return tempItem;
 }
 
-void DestructStack (stack *stk) {
+void DestructStack (stack **stkptr) {
+	int i = 0;
 	stack *tempStack = NULL;
 
-	while(stk != NULL) {
-		tempStack = stk;
-		stk = stk->next;
-		free (tempStack->item);
-		tempStack->item = NULL;
+	while(*stkptr != NULL) {
+		i++;
+		tempStack = *stkptr;
+		*stkptr = (*stkptr)->next;
+		
+		if(tempStack->item != NULL) {
+			printf("Destroying stack item %d\n", i);
+			free (tempStack->item);
+			tempStack->item = NULL;
+		}
+		printf("Destroying stack %d\n", i);
 		free (tempStack);
+		printf("Destroyed stack %d\n", i);
 		tempStack = NULL;
 	}
-
+	*stkptr = NULL;
 }

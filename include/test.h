@@ -5,8 +5,8 @@
 
 void play();
 
-void cardTest();
-
 void stackTest();
+
+void cardTest();
 
 #endif

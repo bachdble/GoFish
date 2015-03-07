@@ -7,7 +7,7 @@ It's an attempt to get back into C programming.
 
 * Build models in this order:
 - [x] CardSet
-- [ ] Stack
+- [x] Stack
 - [ ] CardDeck
 - [ ] Player
 - [ ] MoveHistory
