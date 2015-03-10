@@ -5,6 +5,8 @@
 
 void play();
 
+void cardDeckTest();
+
 void stackTest();
 
 void cardTest();

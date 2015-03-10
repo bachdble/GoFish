@@ -71,7 +71,7 @@ Requires rand (stdlib.h)
 
 	Add count cards of cardType type to the deck.
 
-* int RemoveCares (cardType ct)
+* int RemoveCards (cardType ct)
 
 	Removes all of the cards of type cardType from the deck and
 	returns the number removed.
