@@ -5,7 +5,7 @@
 
 cardSet** CreateDeck(int numCards) {
 	cardSet **tempDeck = NULL;
-	
+
 	if (numCards >= 0 && numCards <= MAX_CARDS_PER_SET) {
 		tempDeck = malloc (sizeof(cardSet *)*MAX_CARD_TYPES);
 		for(cardType i = 0; i < MAX_CARD_TYPES; i++) {
@@ -34,8 +34,8 @@ cardType GetRandomCardFromDeck(cardSet** deck) {
 
 void AddCardsToDeck (cardSet** deck, cardType ct, int count) {
 	if(ct < MAX_CARD_TYPES) {
-		if (count > 0 && count < MAX_CARDS_PER_SET) {
-			if ((GetNumCards(deck[ct]) + count) < MAX_CARDS_PER_SET) {
+		if (count > 0 && count <= MAX_CARDS_PER_SET) {
+			if ((GetNumCards(deck[ct]) + count) <= MAX_CARDS_PER_SET) {
 				AddCards(deck[ct], count);
 			}
 		}
