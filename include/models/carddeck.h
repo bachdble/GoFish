@@ -54,6 +54,13 @@ int RemoveCardsFromDeck (cardSet** deck, cardType ct);
 int DeckHasType (cardSet** deck, cardType ct);
 
 /**
+ * Prints the deck to the screen.
+ *
+ * @param cardSet** deck The deck.
+ */
+void PrintDeck (cardSet **deck);
+
+/**
  * Frees the memory of a previously allocated a cardSet*
  *
  * @param cardSet** deck The Deck to free.

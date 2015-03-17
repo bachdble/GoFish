@@ -65,6 +65,12 @@ int DeckHasType (cardSet** deck, cardType ct) {
 	return hasType;
 }
 
+void PrintDeck (cardSet **deck) {
+	for(cardType i = 0; i < MAX_CARD_TYPES; i++) {
+		printf("%d %ss\n", GetNumCards(deck[i]), GetCardName(deck[i]));
+	}
+}
+
 void DestructDeck (cardSet **deck) {
 	for(cardType i = 0; i < MAX_CARD_TYPES; i++) {
 		free(deck[i]);
