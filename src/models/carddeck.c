@@ -5,8 +5,8 @@
 
 cardSet** CreateDeck(int numCards) {
 	cardSet **tempDeck = NULL;
-
-	if (numCards > 0 && numCards <= MAX_CARDS_PER_SET) {
+	
+	if (numCards >= 0 && numCards <= MAX_CARDS_PER_SET) {
 		tempDeck = malloc (sizeof(cardSet *)*MAX_CARD_TYPES);
 		for(cardType i = 0; i < MAX_CARD_TYPES; i++) {
 			tempDeck[i] = malloc (sizeof(cardSet));
