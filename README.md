@@ -9,7 +9,7 @@ It's an attempt to get back into C programming.
 - [x] CardSet
 - [x] Stack
 - [x] CardDeck
-- [ ] Player
+- [x] Player
 - [ ] MoveHistory
 
 * Build views

@@ -3,12 +3,20 @@
 
 #define ENABLE_TESTS
 
+typedef struct intStruct {
+	int number;
+} intStruct;
+
 void play();
+
+void playerTest();
 
 void cardDeckTest();
 
 void stackTest();
 
 void cardTest();
+
+void pointerPlay();
 
 #endif

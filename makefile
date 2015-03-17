@@ -16,7 +16,7 @@ LIBS=-lm
 
 all: gofish
 
-$(EXE): $(ODIR)/$(EXE).o $(ODIR)/test.o $(ODIR)/cardset.o $(ODIR)/stack.o $(ODIR)/carddeck.o
+$(EXE): $(ODIR)/$(EXE).o $(ODIR)/test.o $(ODIR)/cardset.o $(ODIR)/stack.o $(ODIR)/carddeck.o $(ODIR)/player.o
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 $(ODIR)/$(EXE).o: $(SRCDIR)/gofish.c  $(wildcard $(MODELSRC)/*.c) $(wildcard $(CTRLSRC)/*.c) $(widlcard $(VIEWSRC)/*.c)
@@ -29,6 +29,9 @@ $(ODIR)/stack.o: $(MODELSRC)/stack.c
 	$(CC) $(CPFLAGS) -o $@ $< $(CFLAGS)
 
 $(ODIR)/carddeck.o: $(MODELSRC)/carddeck.c
+	$(CC) $(CPFLAGS) -o $@ $< $(CFLAGS)
+
+$(ODIR)/player.o: $(MODELSRC)/player.c
 	$(CC) $(CPFLAGS) -o $@ $< $(CFLAGS)
 
 $(ODIR)/test.o: $(SRCDIR)/test.c
@@ -48,4 +51,4 @@ run:
 	./$(EXE)
 
 val:
-	valgrind --leak-check=full --show-leak-kinds=all --dsymutil=yes ./$(EXE)
+	valgrind --leak-check=full --show-leak-kinds=all --dsymutil=yes --track-origins=yes ./$(EXE)
