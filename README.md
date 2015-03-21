@@ -10,7 +10,7 @@ It's an attempt to get back into C programming.
 - [x] Stack
 - [x] CardDeck
 - [x] Player
-- [ ] MoveHistory
+- [x] MoveHistory
 
 * Build views
 - [ ] Main

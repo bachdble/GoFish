@@ -5,6 +5,7 @@
 #include "models/cardset.h"
 #include "models/carddeck.h"
 #include "models/player.h"
+#include "models/movehistory.h"
 #include "test.h"
 
 #ifdef ENABLE_TESTS
@@ -14,7 +15,47 @@ void play() {
 	// cardTest();
 	// stackTest();
 	// cardDeckTest();
-	playerTest();
+	// playerTest();
+	moveHistoryTest();
+}
+
+void printMove (move *mv) {
+	// <p1> took <#> <card><s> from <p2>
+	printf("%s took %d %s from %s\n", 
+		GetPlayerName(mv->requestor),
+		mv->count,
+		GetCardNameFromType(mv->card),
+		GetPlayerName(mv->requestee)
+		);
+}
+
+void moveHistoryTest() {
+	printf("Move History Test!\n");
+
+	int numPlayers = 2;
+
+	player **playerList = CreatePlayerList(numPlayers);
+
+	char *name = malloc(sizeof(char)*7);
+	memcpy(name, "Maddie", sizeof(char)*6);
+	SetPlayerName(playerList[0],name);
+
+	name = malloc(sizeof(char)*7);
+	memcpy(name, "Mariah", sizeof(char)*6);
+	SetPlayerName(playerList[1],name);
+
+	history *mh = NULL;
+
+	move* mv = CreateMove(playerList, 1, 0, SHARK, 2);
+	printMove(mv);
+
+	mh = AddMove(mh, mv);
+	printMove(SeeLastMove(mh));
+
+	mv = NULL;
+
+	DestructHistory(mh);
+	DestructPlayerList(playerList, numPlayers);
 }
 
 void playerTest() {
@@ -98,7 +139,7 @@ void printIntStack (stack *stk) {
 	int *iptr;
 	printf("Printing Stack:\n");
 	while(tempStk != NULL) {
-		iptr = Peek(tempStk);
+		iptr = Peek(&tempStk);
 		printf("%d\n", *iptr);
 		tempStk = tempStk->next;
 	}

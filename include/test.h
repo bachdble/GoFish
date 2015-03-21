@@ -9,6 +9,8 @@ typedef struct intStruct {
 
 void play();
 
+void moveHistoryTest();
+
 void playerTest();
 
 void cardDeckTest();

@@ -16,7 +16,7 @@ LIBS=-lm
 
 all: gofish
 
-$(EXE): $(ODIR)/$(EXE).o $(ODIR)/test.o $(ODIR)/cardset.o $(ODIR)/stack.o $(ODIR)/carddeck.o $(ODIR)/player.o
+$(EXE): $(ODIR)/$(EXE).o $(ODIR)/test.o $(ODIR)/cardset.o $(ODIR)/stack.o $(ODIR)/carddeck.o $(ODIR)/player.o $(ODIR)/movehistory.o
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 $(ODIR)/$(EXE).o: $(SRCDIR)/gofish.c  $(wildcard $(MODELSRC)/*.c) $(wildcard $(CTRLSRC)/*.c) $(widlcard $(VIEWSRC)/*.c)
@@ -32,6 +32,9 @@ $(ODIR)/carddeck.o: $(MODELSRC)/carddeck.c
 	$(CC) $(CPFLAGS) -o $@ $< $(CFLAGS)
 
 $(ODIR)/player.o: $(MODELSRC)/player.c
+	$(CC) $(CPFLAGS) -o $@ $< $(CFLAGS)
+
+$(ODIR)/movehistory.o: $(MODELSRC)/movehistory.c
 	$(CC) $(CPFLAGS) -o $@ $< $(CFLAGS)
 
 $(ODIR)/test.o: $(SRCDIR)/test.c
