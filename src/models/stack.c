@@ -17,8 +17,8 @@ void Push (stack **stkptr, void *item) {
 	*stkptr = newCell;
 }
 
-void* Peek (stack *stk) {
-	return stk->item;
+void* Peek (stack **stkptr) {
+	return (*stkptr)->item;
 }
 
 void* Pop (stack **stkptr) {

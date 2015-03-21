@@ -37,13 +37,13 @@ void Push (stack **stkptr, void *item);
 void* Pop (stack **stkptr);
 
 /**
- * Returns the void* item from the top of stack *stk.
+ * Returns the void* item from the top of stack *stkptr.
  *
- * @param stack *stk A pointer to the head of the stack.
+ * @param stack *stkptr A pointer to the head of the stack.
  *
  * @return void* The item or null if the bottom item is popped.
  */
-void* Peek (stack *stk);
+void* Peek (stack **stkptr);
 
 /**
  * Free the stack memory.
