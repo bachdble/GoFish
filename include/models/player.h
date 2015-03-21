@@ -31,6 +31,11 @@ player** CreatePlayerList(int numPlayer);
  */
 void SetPlayerName (player *p, char *name);
 
+/**
+ * Gets the player's name
+ *
+ * @return player *p The player.
+ */
 char* GetPlayerName (player *p);
 
 /**
