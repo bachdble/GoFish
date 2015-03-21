@@ -22,6 +22,10 @@ void SetPlayerName (player *p, char *name) {
 	p->name = name;
 }
 
+char* GetPlayerName (player *p) {
+	return p->name;
+}
+
 int DoYouHaveAny (player *p, cardType ct) {
 	if(!(p != NULL && p->deck != NULL && ct < MAX_CARD_TYPES)) {
 		return 0;

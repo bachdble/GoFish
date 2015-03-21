@@ -31,6 +31,8 @@ player** CreatePlayerList(int numPlayer);
  */
 void SetPlayerName (player *p, char *name);
 
+char* GetPlayerName (player *p);
+
 /**
  * Returns 1 if player has any of cardType in the deck, 0 otherwise.
  *
