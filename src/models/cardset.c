@@ -30,7 +30,11 @@ cardType GetCardType (cardSet *card) {
 }
 
 const char *GetCardName (cardSet *card) {
-	return cardNames[GetCardType(card)];
+	return GetCardNameFromType(GetCardType(card));
+}
+
+const char* GetCardNameFromType (cardType type) {
+	return cardNames[type];
 }
 
 int SetCardType (cardSet *card, cardType type) {

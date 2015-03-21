@@ -65,6 +65,14 @@ cardType GetCardType (cardSet *card);
 const char* GetCardName (cardSet *card);
 
 /**
+ * Returns the string value of the card type.  Do not free the memory.
+ *
+ * @param cardType card A card type
+ * @return The card type string value.
+ */
+const char* GetCardNameFromType (cardType type);
+
+/**
  * Sets the card type. 
  *
  * @param card A pointer to a card.
