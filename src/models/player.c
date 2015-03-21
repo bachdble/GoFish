@@ -40,7 +40,8 @@ player *CopyPlayer (player *p) {
 	if(p != NULL) {
 		tempPlayer = malloc(sizeof(player));
 
-		name = malloc(sizeof(char)*strlen(p->name));
+		name = malloc(sizeof(char)*(strlen(p->name)+1));
+		memcpy(name,p->name, strlen(p->name));
 		SetPlayerName(tempPlayer, name);
 
 		tempPlayer->deck = CreateDeck(0);
